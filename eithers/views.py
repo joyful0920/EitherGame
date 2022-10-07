@@ -41,7 +41,8 @@ def detail(request, pk):
     comments = game.comment_set.all()
 
     if len(comments) != 0:
-        left = round(len(comments.filter(voted='primary')) / len(comments) * 100, 2)
+        left = round(len(comments.filter(voted='primary')) /
+                     len(comments) * 100, 2)
         right = 100 - left
     else:
         left, right = 50, 50
@@ -59,10 +60,10 @@ def detail(request, pk):
 @require_POST
 def comments_create(request, pk):
     game = Game.objects.get(pk=pk)
-    comment = Comment()
-    comment.game = game
-    comment.content = request.POST.get('content')
-    comment.voted = request.POST.get('voted')
-    comment.save()
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+        comment = comment_form.save(commit=False)
+        comment.game = game
+        comment.user = request.user
+        comment.save()
     return redirect('eithers:detail', game.pk)
-

@@ -1,5 +1,3 @@
-from dataclasses import field
-from django import forms
 from django import forms
 from .models import Game, Comment
 
@@ -15,4 +13,4 @@ class CommentForm(forms.ModelForm):
 
     class Meta:
         model = Comment
-        exclude = ('article',)
+        exclude = ('game',)
