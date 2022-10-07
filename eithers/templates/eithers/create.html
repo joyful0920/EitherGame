@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <body class="about-us bg-gray-200">
+    <!-- Navbar -->
+    <div class="container position-sticky z-index-sticky top-0">
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-expand-lg  blur border-radius-xl mt-4 top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+            <div class="container-fluid px-0">
+              <a class="navbar-brand font-weight-bolder ms-sm-3" href="{% url 'eithers:index' %}" rel="tooltip" data-placement="bottom">
+                Either Game
+              </a>
+              <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon mt-2">
+                  <span class="navbar-toggler-bar bar1"></span>
+                  <span class="navbar-toggler-bar bar2"></span>
+                  <span class="navbar-toggler-bar bar3"></span>
+                </span>
+              </button>
+              <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
+                <ul class="navbar-nav navbar-nav-hover ms-auto">
+                  <li class="nav-item ms-lg-auto">
+                    <a class="nav-link nav-link-icon me-2" href="https://github.com/joyful0920">
+                      <i class="fa fa-github me-1"></i>
+                      <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Star us on Github">Github</p>
+                    </a>
+                  </li>
+                  <li class="nav-item my-auto ms-3 ms-lg-0">
+                    <a href="{% url 'eithers:index' %}" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">GAME START</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+        </div>
+      </div>
+    </div>
+    <!-- End Navbar -->
+    <!-- Header -->
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
+              <div class="position-relative h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('https://images.unsplash.com/photo-1614995008867-32eef7bff38c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80'); background-size: cover; background-position: center;" loading="lazy"></div>
+            </div>
+            <div class="col-xl-5 col-lg-6 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+              <div class="card d-flex blur justify-content-center shadow-lg my-sm-0 my-sm-6 mt-8 mb-5">
+                <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2 bg-transparent">
+                  <div class="bg-gradient-primary shadow-primary border-radius-lg p-3">
+                    <h3 class="text-white text-primary mb-0">New Question</h3>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <p class="pb-3">
+                    Create a custom game.
+                  </p>
+                  <form id="create-form" action="{% url 'eithers:create' %}" method="POST" autocomplete="off">
+                    {% csrf_token %}
+                    <div class="card-body p-0 my-3">
+                      <div class="form-group mb-0 mt-md-0 mt-4">
+                        <div class="input-group input-group-lg input-group-static mb-4">
+                          <label>Title</label>
+                          <textarea name="title" class="form-control" id="title" rows="1"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group mb-0 mt-md-0 mt-4">
+                        <div class="input-group input-group-lg input-group-static mb-4">
+                          <label>Image URL</label>
+                          <textarea name="img_url" class="form-control" id="img_url" rows="1"></textarea>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label>issue a</label>
+                            <textarea name="issue_a" class="form-control" id="issue_a" rows="1"></textarea>
+                          </div>
+                        </div>
+                        <div class="col-md-6 ps-md-2">
+                          <div class="input-group input-group-lg input-group-static mb-4">
+                            <label>issue b</label>
+                            <textarea name="issue_b" class="form-control" id="issue_b" rows="1"></textarea>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <button type="submit" class="btn bg-gradient-primary mt-3 mb-0">Submit</button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- End Header -->
+  </body>
+{% endblock content %}

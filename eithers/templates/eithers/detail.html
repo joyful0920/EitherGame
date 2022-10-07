@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <body class="about-us">
+    <!-- Navbar -->
+    <div class="container position-sticky z-index-sticky top-0">
+      <div class="row">
+        <div class="col-12">
+          <nav class="navbar navbar-expand-lg  blur border-radius-xl mt-4 top-0 z-index-3 shadow position-absolute my-3 py-2 start-0 end-0 mx-4">
+            <div class="container-fluid px-0">
+              <a class="navbar-brand font-weight-bolder ms-sm-3" href="{% url 'eithers:index' %}" rel="tooltip" data-placement="bottom">
+                Either Game
+              </a>
+              <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon mt-2">
+                  <span class="navbar-toggler-bar bar1"></span>
+                  <span class="navbar-toggler-bar bar2"></span>
+                  <span class="navbar-toggler-bar bar3"></span>
+                </span>
+              </button>
+              <div class="collapse navbar-collapse pt-3 pb-2 py-lg-0 w-100" id="navigation">
+                <ul class="navbar-nav navbar-nav-hover ms-auto">
+                  <li class="nav-item ms-lg-auto">
+                    <a class="nav-link nav-link-icon me-2" href="https://github.com/joyful0920" target="_blank">
+                      <i class="fa fa-github me-1"></i>
+                      <p class="d-inline text-sm z-index-1 font-weight-bold" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Star us on Github">Github</p>
+                    </a>
+                  </li>
+                  <li class="nav-item my-auto ms-3 ms-lg-0">
+                    <a href="{% url 'eithers:index' %}" class="btn btn-sm  bg-gradient-primary  mb-0 me-1 mt-2 mt-md-0">GAME START</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <!-- End Navbar -->
+        </div>
+      </div>
+    </div>
+    <!-- End Navbar -->
+    <!-- Header -->
+    <header class="bg-gradient-dark">
+      <div class="page-header min-vh-45" style="background-image: url('{{ game.img_url }}');">
+        <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-lg-8 text-center mx-auto my-auto">
+              <h1 class="text-white">DETAIL</h1>
+              <p class="lead mb-4 text-white opacity-8">Vote for your favorite!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- End Header -->
+    <div class="container w-120 my-6">
+      <div class="text-center">
+        <h1 class="mb-3">{{ game.title }}</h1>
+      </div>
+      <div class="d-flex justify-content-between">
+        <span class="text-primary font-weight-bolder fs-3">{{ game.issue_a }}</span>
+        <span class="text-info font-weight-bolder fs-3">{{ game.issue_b }}</span>
+      </div>
+      <div class="progress mb-5">
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" aria-label="Segment one" style="width: {{ left }}%; height: 30px;" aria-valuenow="{{ left }}" aria-valuemin="0" aria-valuemax="100">{{ left }}%</div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated bg-info" role="progressbar" aria-label="Segment two" style="width: {{ right }}%; height: 30px;" aria-valuenow="{{ right }}" aria-valuemin="0" aria-valuemax="100">{{ right }}%</div>
+      </div>
+      <div class="text-dark">
+        <hr>
+      </div>
+      <h3 class="mb-3">댓글 작성</h3>
+      <form action="{% url 'eithers:comments_create' game.pk %}" method="POST">
+        {% csrf_token %}
+        <label for="voted">Pick</label>
+        <div class="input-group input-group-lg input-group-static mb-4">
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="voted" id="voted1" value="primary">
+            <label class="custom-control-label" for="voted1">
+              <span class="badge bg-gradient-primary">{{ game.issue_a }}</span></label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="voted" id="voted2" value="info">
+            <label class="custom-control-label" for="voted2">
+              <span class="badge bg-gradient-info">{{ game.issue_b }}</span></label>
+          </div>
+        </div>
+        <label>Content</label>
+        <div class="input-group input-group-lg input-group-static mb-4">
+          <textarea name="content" class="form-control" id="content" rows="1" required="required"></textarea>
+        </div>
+        <input type="submit" class="btn btn-lg bg-gradient-warning" value="작 성"></input>
+      </form>
+      <div class="text-dark">
+        <hr>
+      </div>
+      <h3 class="mb-3">댓글 목록</h3>
+      {% for comment in comments %}
+        <button type="button" class="btn btn-lg btn-{{ comment.voted }}">{{ comment.content }}</button>
+      {% endfor %}
+    </div>
+  </body>
+{% endblock content %}
